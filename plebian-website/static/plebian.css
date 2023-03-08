@@ -80,6 +80,10 @@ body {
     background-color: rgba(247, 247, 247, 255);
 }
 
+.plebian-box-link {
+    text-decoration: none;
+}
+
 .plebian-box-link::after {
     content: '\2192';
 }
