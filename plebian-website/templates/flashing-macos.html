@@ -1,5 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Flashing Instructions For macOS</h1>
-<p>This is {{ page.template }} for {{ board_name }} using the image {{ image_name }}, instructions for {{ operating_system }}.</p>
+<p>
+Getting your {{ board_name }} up and running is easy! Just follow these steps
+and pay close attention to the instructions.
+</p>
+<h2>Downloading The Image</h2>
+<p>
+Head on over to <a href="https://github.com/Plebian-Linux/quartz64-images/releases/latest">
+the releases page for the latest release</a> and download
+<strong>{{ image_name }}</strong> from the "Assets" section.
+</p>
+<h2>Flashing</h2>
+<p>
+<strong>TODO:</strong> Get someone with a Mac to write this section.
+</p>
+<h2>Next Steps</h2>
+<p>
+For information on your next steps, please consult <a href="https://github.com/Plebian-Linux/quartz64-images/blob/main/RUNNING.md">
+the RUNNING.md</a> in Plebian's quartz64-images repository. It'll tell you the
+default login details and give you some hints regarding specific aspects of the
+board and software stack.
+</p>
 {% endblock %}
