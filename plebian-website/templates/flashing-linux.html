@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Flashing Instructions For Linux</h1>
+<p>This is {{ page.template }} for {{ board_name }} using the image {{ image_name }}, instructions for {{ operating_system }}.</p>
+<h2>Downloading The Image</h2>
+<p>
+Head on over to <a href="https://github.com/Plebian-Linux/quartz64-images/releases/latest">
+the releases page for the latest release</a> and download {{ image_name }}, which
+is the right image for your {{ board_name }}.
+</p>
+<h2>Flashing</h2>
+<p>
+Insert your target medium (either an SD card or an eMMC module with an eMMC
+adapter) into your computer. Run <code>lsblk</code> to figure out which device
+node under /dev/ it is. This page will refer to it as <var>/dev/sdX</var> from
+now on.
+</p>
+<p>
+Next, on the terminal, type the command <br>
+<code class="plebian-command">
+xzcat {{ image_name }} | sudo dd of=/dev/sdX bs=16M oflag=dsync status=progress
+</code><br>
+replacing <var>/dev/sdX</var> with your target block device's name.
+</p>
+{% endblock %}

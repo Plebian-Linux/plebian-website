@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>What Operating System Are You Using?</h1>
+<p>
+Please choose the operating system you intend to flash your
+board from:
+</p>
+<ul>
+    <li><a href="{{ page.target }}windows/">Windows</a></li>
+    <li><a href="{{ page.target }}linux/">Linux</a></li>
+    <li><a href="{{ page.target }}macos/">macOS</a></li>
+</ul>
+{% endblock %}

@@ -1,0 +1,68 @@
+body {
+    font-family: sans-serif;
+    font-size: 14pt;
+    margin: 0;
+}
+
+#content {
+    max-width: 770px;
+    margin: 1em auto;
+}
+
+#plebian-navigation-block {
+    background-color: #c70036;
+    display: flex;
+    list-style: none;
+    text-indent: 0;
+    margin-left: 0px;
+    margin-top: 0px;
+    padding: 0;
+    width: 100%;
+    height: 50px;
+}
+
+#plebian-navigation {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    height: 100%;
+}
+
+#plebian-navigation li {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    align-items: center;
+    height: 100%;
+}
+
+.plebian-navigation-item-active {
+    background-color: #a80030;
+}
+
+#plebian-navigation li a {
+    align-items: center;
+    text-decoration:none;
+    color: white;
+    font-weight: bold;
+    height: 100%;
+    display: flex;
+    padding: 0 10px 0 10px;
+}
+
+#plebian-navigation li a:visited {
+    color: white;
+    font-weight: bold;
+}
+
+.plebian-command {
+    width: 100%;
+    white-space: nowrap;
+    overflow-y: scroll;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: inline-block;
+    background-color: black;
+    color: white;
+}

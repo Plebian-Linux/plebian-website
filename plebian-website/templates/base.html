@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% if page.title %}{{ page.title }} - {% endif %}Plebian Linux</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ base_url }}plebian.css" type="text/css">
+    </head>
+    <body>
+        <header>
+            <nav id="plebian-navigation-block">
+                <ul id="plebian-navigation">
+                {%- for item in navigation.entries %}
+                    {% if page.target == item.target -%}
+                    <li class="plebian-navigation-item plebian-navigation-item-active"><a href="{{ item.target }}">{{ item.label }}</a></li>
+                    {%- else -%}
+                    <li class="plebian-navigation-item"><a href="{{ item.target }}">{{ item.label }}</a></li>
+                    {%- endif %}
+                {%- endfor %}
+                </ul>
+            </nav>
+        </header>
+        <main id="content">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </body>
+</html>
