@@ -19,7 +19,19 @@ boards = {
     'q64b': {
         'image_name': 'plebian-debian-bookworm-quartz64b.img.xz',
         'board_name': 'Quartz64 Model B',
-    }
+    },
+    'soquartz-blade': {
+        'image_name': 'plebian-debian-bookworm-soquartz-blade.img.xz',
+        'board_name': 'SOQuartz On Blade Baseboard'
+    },
+    'soquartz-cm4io': {
+        'image_name': 'plebian-debian-bookworm-soquartz-cm4.img.xz',
+        'board_name': 'SOQuartz On CM4IO Baseboard'
+    },
+    'soquartz-model-a': {
+        'image_name': 'plebian-debian-bookworm-soquartz-model-a.img.xz',
+        'board_name': 'SOQuartz On "Model A" Baseboard'
+    },
 }
 
 
@@ -58,6 +70,9 @@ pages = {
         'template': 'flashing.html',
         'target': '/flashing/',
         'title': 'Flashing',
+        'extra_args': {
+            'boards': boards
+        }
     },
 }
 

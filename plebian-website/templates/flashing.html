@@ -3,7 +3,8 @@
 <h1>Flashing</h1>
 <p>Please choose your board:</p>
 <ul>
-    <li><a href="{{ page.target }}q64a/">Quartz64 Model A</a></li>
-    <li><a href="{{ page.target }}q64b/">Quartz64 Model B</a></li>
+    {% for slug in boards %}
+    <li><a href="{{ page.target }}{{ slug }}/">{{ boards[slug].board_name }}</a></li>
+    {% endfor %}
 </ul>
 {% endblock %}
