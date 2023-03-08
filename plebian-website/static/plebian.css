@@ -80,6 +80,10 @@ body {
     background-color: rgba(247, 247, 247, 255);
 }
 
+.plebian-box h2 {
+    margin-top: 0;
+}
+
 .plebian-box-link {
     text-decoration: none;
 }
