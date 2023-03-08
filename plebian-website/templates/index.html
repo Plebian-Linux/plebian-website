@@ -1,5 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Hello</h1>
-<p>This is the index.html</p>
+<h1>Plebian &mdash; PINE Live Debian</h1>
+<div class="plebian-box-container">
+    <div class="plebian-box">
+        <h2>About</h2>
+        <p>
+            Plebian is a set of Debian-based live images for PINE64's Quartz64
+            and SOQuartz line of devices. Plebian aims to be unsurprising, well
+            documented and easy to get started with.
+        </p>
+        <p>
+            <a class="plebian-box-link" href="/about/">Learn more</a>
+        </p>
+    </div>
+    <div class="plebian-box">
+        <h2>Installation</h2>
+        <p>
+            Since Plebian images are "live" images, there is no installer.
+            Installing Plebian onto your Quartz64 device is as simple as
+            flashing the right image to either your SD or eMMC storage.
+        </p>
+        <p>
+            <a class="plebian-box-link" href="/flashing/">Get started</a>
+        </p>
+    </div>
+    <div class="plebian-box">
+        <h2>Contributing</h2>
+        <p>
+            Plebian's image generation pipeline is completely open, which means
+            you can not only make your own changes to it, but also contribute
+            them back.
+        </p>
+        <p>
+            Found an issue you want to report or have a suggestion to make?
+            Head on over to our GitHub repository!
+        </p>
+        <p>
+            <a class="plebian-box-link" href="https://github.com/Plebian-Linux/quartz64-images/">Help out</a>
+        </p>
+    </div>
+</div>
 {% endblock %}
