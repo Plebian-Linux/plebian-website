@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>First Boot</h1>
+<p>
+    There are three ways of interfacing with your board: over serial, with a
+    keyboard and monitor, and over the network.
+</p>
+<p>
+    The preferred method is to interact with it on its first boot through
+    serial, just because it's the method through which you'll be most likely to
+    debug any early boot failures. However, any of the other two methods should
+    work in the best case as well, and are usually easier to set up.
+</p>
+<h2>Methods Of Interacting With The Board</h2>
+<h3>Interacting Through Serial</h3>
+<p>
+    To get a serial connection to the board, you'll need a 1.5 megabauds capable
+    3.3V serial adapter, such as the PINE64 Woodpecker.
+</p>
+<p>
+    Connect GND of the serial adapter to a ground pin of your board. Then,
+    connect the TXD pin of the serial adapter to the RXD pin of the board
+    (pin 10), and the RXD pin of the serial adapter to the TXD pin of the board
+    (pin 8). If this doesn't work, try swapping TXD and RXD around, sometimes
+    the labelling is reversed.
+</p>
+<p>
+    Plug the USB to Serial adapter into your computer, and open a serial
+    terminal at 1500000n1. On linux you can do it like this with picocom:<br>
+    <code class="plebian-command">picocom -b 1500000 /dev/ttyUSB0</code>
+</p>
+<p>
+    On Windows, you can use a serial terminal like PuTTY.
+</p>
+<h3>Interacting Through Monitor &amp; Keyboard</h3>
+<p>
+    To interact with your board through monitor and keyboard, just connect a
+    normal USB keyboard to the board's USB ports and a monitor capable of
+    displaying a 1920x1080@60Hz (or 1280x720@60Hz) signal.
+</p>
+<p>
+    Please note that you will not see messages from u-boot this way, the video
+    output only becomes functional once the Linux kernel is started and sets a
+    video mode.
+</p>
+<h3>Interacting Through Network</h3>
+<p>
+    The board will grab an IP through DHCP on any available wired network
+    adapter and start an OpenSSH daemon on port 22 (the default). It'll also
+    announce itself over mDNS.
+</p>
+<p>
+    This means connecting to the board is as simple as plugging in a network
+    cable and ssh'ing to pleb@<var>hostname</var>.local, where
+    <var>hostname</var> depends on your board and is one of the following
+    choices:
+    <ul>
+        <li>plebian-quartz64a</li>
+        <li>plebian-quartz64b</li>
+        <li>plebian-soquartz-blade</li>
+        <li>plebian-soquartz-model-a</li>
+        <li>plebian-soquartz-cm4</li>
+    </ul>
+    This requires your system to support resolving domain names through mDNS,
+    e.g. with Avahi or systemd-resolved.
+</p>
+<p>
+    Alternatively, you can connect to the board's IP directly, though you'll
+    need to find said IP yourself.
+</p>
+{% endblock %}

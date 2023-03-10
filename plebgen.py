@@ -74,6 +74,16 @@ pages = {
             'boards': boards
         }
     },
+    'running': {
+        'template': 'running.html',
+        'target': '/running/',
+        'title': 'Running',
+    },
+    'running-first-boot': {
+        'template': 'running-first-boot.html',
+        'target': '/running/first-boot/',
+        'title': 'First Boot',
+    },
 }
 
 pages.update(flashing_pages())
@@ -92,6 +102,10 @@ navigation = {
         {
             'target': pages['flashing']['target'],
             'label': 'Flashing'
+        },
+        {
+            'target': pages['running']['target'],
+            'label': 'Running'
         },
         {
             'target': 'https://github.com/Plebian-Linux/quartz64-images/',
