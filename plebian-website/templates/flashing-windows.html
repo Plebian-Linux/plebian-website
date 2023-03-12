@@ -13,8 +13,25 @@ the releases page for the latest release</a> and download
 </p>
 <h2>Flashing</h2>
 <p>
-<strong>TODO:</strong> Find a good flashing utility for Windows and write this
-section.
+The first step is to download a disk image flashing utility such as
+<a href="https://github.com/pbatard/rufus/releases/latest">Rufus</a>, which
+will allow you to unpack and flash the compressed disk image to your target
+storage device in a single operation.
+</p>
+<figure>
+    <img src="/img/rufus.png" alt="Screenshot of the Rufus interface">
+    <figcaption>A screenshot of the Rufus application.</figcaption>
+</figure>
+<p>
+In Rufus, choose the right device for your SD or eMMC adapter, then click on
+"Select" to choose <strong>{{ image_name }}</strong> from where you have
+downloaded it. Leave the other options at their default, they do not matter for
+this process. Hit the "START" button when you are ready to flash the image. This
+will take a while to complete, but Rufus will give you a progress indicator.
+</p>
+<p>
+Once the image writing is complete, you're good to go. Connect your target
+medium to your {{ board_name }}.
 </p>
 <h2>Next Steps</h2>
 <p>
