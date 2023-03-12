@@ -84,6 +84,11 @@ pages = {
         'target': '/running/first-boot/',
         'title': 'First Boot',
     },
+    'running-software-choices': {
+        'template': 'running-software-choices.html',
+        'target': '/running/software-choices/',
+        'title': 'Software Choices',
+    },
 }
 
 pages.update(flashing_pages())

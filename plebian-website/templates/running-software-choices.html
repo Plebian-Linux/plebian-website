@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Software Choices</h1>
+<p>
+When using the board, it's important to choose the right software to be able
+to get the most out of it. Failure to do so can seriously affect your
+experience, and lead you to false conclusions about the state of software
+support for the hardware. Therefore, please read this document in its entirety.
+</p>
+
+<h2>Use Wayland</h2>
+<p>
+If you want to get graphics acceleration, you must use Wayland. Panfrost is not
+really tested on X11. You can still run X11 applications through XWayland.
+</p>
+<p>
+In particular, this means that currently desktop environments like Xfce, which
+only support X11, are not recommended.
+</p>
+<p>
+As for how to install the Wayland versions of various desktop environments,
+please consult <a href="https://wiki.debian.org/Wayland">the Debian wiki</a>.
+</p>
+<p>
+(For Plasma, remember to choose "Wayland" on the bottom left on the SDDM login
+screen!)
+</p>
+{% endblock %}
