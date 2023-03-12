@@ -25,6 +25,10 @@
     the labelling is reversed.
 </p>
 <p>
+    Please ensure that the board is turned off and unplugged while connecting
+    the serial adapter, to avoid any risk of shorting out something by accident.
+</p>
+<p>
     Plug the USB to Serial adapter into your computer, and open a serial
     terminal at 1500000n1. On linux you can do it like this with picocom:<br>
     <code class="plebian-command">picocom -b 1500000 /dev/ttyUSB0</code>
@@ -67,5 +71,23 @@
 <p>
     Alternatively, you can connect to the board's IP directly, though you'll
     need to find said IP yourself.
+</p>
+<h2>Logging In</h2>
+<p>
+    After connecting power, please allow a few seconds for the board to boot.
+    It's busy resizing your root partition and file system to take up the
+    entirety of the SD card or eMMC module.
+</p>
+<p>
+    Once you hit a login prompt, use the username <strong>pleb</strong> with the
+    default password <strong>pleb</strong> to log in. You will be immediately
+    asked to change your password. If you're connecting over SSH, this means
+    you'll have to log in again with your new password after completing the
+    password change.
+</p>
+<p>
+    Please be aware that there is no ability to log in as root for security
+    reasons; instead, use <code>sudo -i</code> to get a root shell when running
+    as the user pleb.
 </p>
 {% endblock %}
