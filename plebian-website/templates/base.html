@@ -8,6 +8,11 @@
     <body>
         <header>
             <nav id="plebian-navigation-block">
+                <div id="plebian-logo">
+                    <a href="{{ base_url }}">
+                        <img src="{{ base_url }}img/plebian-logo-white.svg">
+                    </a>
+                </div>
                 <ul id="plebian-navigation">
                 {%- for item in navigation.entries %}
                     {% if page.target == item.target -%}
