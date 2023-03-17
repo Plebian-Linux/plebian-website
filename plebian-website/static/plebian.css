@@ -109,6 +109,11 @@ body {
     margin-right: auto;
 }
 
+#plebian-logo {
+    height: 50px;
+    width: 50px;
+}
+
 #plebian-logo img {
     height: 50px;
     width: 50px;
