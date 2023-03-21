@@ -30,6 +30,7 @@ Follow PEP8. (Use `pycodestyle` to check!)
 
 Unless stated otherwise, the contents of this repository are licensed as
 follows:
+
  * `plebgen.py` is licensed under the GNU General Public License v3, the text
    the text of which can be found in the `LICENSE_GPL` file.
  * The templates, including the texts therein, as well as the static assets, are
