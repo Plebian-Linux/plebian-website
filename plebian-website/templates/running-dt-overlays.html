@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Device Tree Overlays</h1>
+<p>
+Since release v2023-02-28-1, Plebian supports using device tree overlays.
+In short, device tree overlays are snippets to adjust the hardware description
+used by the kernel to interface with non-self-enumerating devices such as
+I<sup>2</sup>C and SPI. This hardware description is called the device tree, and
+overlays modify this base device tree.
+</p>
+<p>
+The usual reason to use device tree overlays is to interface with some sensor or
+output device that uses I<sup>2</sup>C, I<sup>2</sup>S or SPI. However, you can
+also use it for other purposes.
+</p>
+<h2>Prerequisites</h2>
+<p>
+You'll need to be using Plebian release v2023-02-28-1 or newer, and have the
+<code>devicetrees-plebian-quartz64</code> package installed. The latter is
+required for the device trees to have the necessary symbols to be overlaid onto;
+if you're building a custom kernel, pass <code>DTC_FLAGS="-@"</code> to your
+invocation of <code>make</code>.
+</p>
+<p>
+It's also good to have the package <code>device-tree-compiler</code> installed
+in order to be able to build device tree overlays.
+</p>
+<h2>Writing Device Tree Overlays</h2>
+<p>
+To learn more about device tree overlays and how to write them, you can find
+some examples in the <a href="https://github.com/CounterPillow/overlay-examples">
+CounterPillow/overlay-examples</a> repository on GitHub. Ignore the "Installing"
+section of that README; it doesn't apply to Plebian in the same way.
+</p>
+<p>
+To learn more about device trees in general, check out
+<a href="https://elinux.org/Device_Tree_Usage">"Device Tree Usage" on elinux.org</a>.
+</p>
+<h2>Installing Device Tree Overlays</h2>
+<p>
+There are two methods of installing the overlays; implicitly and explicitly.
+It's important to not mix the two, as implicitly picking up overlays only works
+when there's none specified explicitly.
+</p>
+<h3>Method 1: Implicitly</h3>
+<p>
+Simply place the <code>.dtbo</code> file into the <code>/boot/dtbo/</code>
+directory, creating said directory if it doesn't already exist. Then run
+<code class="plebian-command">sudo u-boot-update</code> and the device tree blob
+overlay will be picked up, and included in your <code>extlinux.conf</code>.
+</p>
+<h3>Method 2: Explicitly</h3>
+<p>
+Method 2 conflicts with Method 1, and is to explicitly specify which device tree
+overlay files you want to use. You'll still place your <code>.dtbo</code> files
+into <code>/boot/dtbo/</code>, but edit <code>/etc/default/u-boot</code> to
+contain the line:
+</p>
+<p>
+<code>
+U_BOOT_FDT_OVERLAYS="your-overlay-here.dtbo additional-separated-by-space.dtbo"
+</code>
+</p>
+<p>
+Note the lack of a # at the beginning of the line. After editing your file like
+this, run
+<code class="plebian-command">sudo u-boot-update</code>
+to regenerate your <code>extlinux.conf</code>.
+</p>
+<p>
+Method 2 will not pick up any <code>.dtbo</code> files not listed in the
+<code>U_BOOT_FDT_OVERLAYS</code> variable. Any value of that variable other than
+it being empty counts as it no longer automatically picking up whatever is in
+<code>/boot/dtbo/</code>.
+</p>
+<h2>Applying The Overlays</h2>
+<p>
+Device tree overlays are applied by u-boot. Therefore, it's necessary to reboot
+in order for them to be applied.
+</p>
+{% endblock %}

@@ -94,6 +94,11 @@ pages = {
         'target': '/running/updating/',
         'title': 'Updating',
     },
+    'running-dt-overlays': {
+        'template': 'running-dt-overlays.html',
+        'target': '/running/dt-overlays/',
+        'title': 'Device Tree Overlays',
+    },
 }
 
 pages.update(flashing_pages())
