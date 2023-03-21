@@ -89,6 +89,11 @@ pages = {
         'target': '/running/software-choices/',
         'title': 'Software Choices',
     },
+    'running-updating': {
+        'template': 'running-updating.html',
+        'target': '/running/updating/',
+        'title': 'Updating',
+    },
 }
 
 pages.update(flashing_pages())

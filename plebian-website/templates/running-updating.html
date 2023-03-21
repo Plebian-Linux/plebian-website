@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Keeping Your System Up-To-Date</h1>
+<p>
+For both security and functionality, it's important to keep your operating
+system up to date. This can be done the same way as with any Debian system,
+namely through the <code>apt</code> package manager.
+</p>
+<h2>Regular Everyday Updates</h2>
+<p>
+To refresh your local package database, allowing you to install new packages and
+upgrade old ones, run<br>
+<code class="plebian-command">
+sudo apt update
+</code>
+</p>
+<p>
+To then upgrade your installed packages, you can run<br>
+<code class="plebian-command">
+sudo apt upgrade
+</code>
+</p>
+<p>
+Occasionally, a package upgrade warrants the removal of a package. To upgrade
+all packages in those cases, use<br>
+<code class="plebian-command">
+sudo apt full-upgrade
+</code>
+</p>
+<h2>Updates That Require Manual Intervention</h2>
+<p>
+Since not everything that makes up Plebian is provided by a .deb package, we
+occasionally require manual intervention to get you into the same state as a
+new set of images.
+</p>
+<p>
+To find out when and how to do this, please consult
+<a href="https://github.com/Plebian-Linux/quartz64-images/blob/main/UPGRADING.md">UPGRADING.md</a>
+in the Plebian quartz64-images repository.
+</p>
+{% endblock %}
