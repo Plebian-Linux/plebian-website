@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+from datetime import datetime
 from os import makedirs, path
 from shutil import rmtree, copytree
 from jinja2 import Environment, PackageLoader, select_autoescape
@@ -153,9 +154,11 @@ def main():
         page_out = path.join(args.outdir, target_path)
         makedirs(page_out, exist_ok=True)
         extra_args = p.get('extra_args', {})
+        year = datetime.now().year
         with open(path.join(page_out, 'index.html'), 'w') as f:
             f.write(template.render(navigation=navigation, page=p,
-                                    base_url=base_url, **extra_args))
+                                    base_url=base_url, year=year,
+                                    **extra_args))
 
 
 if __name__ == '__main__':
