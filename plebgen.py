@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+"""Generates the static Plebian website from its templates."""
+
 import argparse
 from datetime import datetime
 from os import makedirs, path
@@ -37,6 +40,7 @@ boards = {
 
 
 def flashing_pages():
+    """Returns a dictionary of all the board/OS flashing page combinations."""
     d = {}
     for slug, board in boards.items():
         d[f"flashing-{slug}"] = {
@@ -53,7 +57,7 @@ def flashing_pages():
     return d
 
 
-base_url = '/'
+BASE_URL = '/'
 
 
 pages = {
@@ -132,11 +136,13 @@ navigation = {
 
 
 def copy_static_files(outdir):
+    """Copies the static directory from the plebian-website module to outdir."""
     static_path = "plebian-website/static"
     copytree(static_path, outdir, dirs_exist_ok=True)
 
 
 def main():
+    """Main command line entry point."""
     parser = argparse.ArgumentParser(
         description="Generate Plebian's Website")
     parser.add_argument("-o", "--outdir", default="build/")
@@ -148,16 +154,16 @@ def main():
 
     copy_static_files(args.outdir)
 
-    for p_name, p in pages.items():
-        template = env.get_template(p['template'])
-        target_path = p['target'].lstrip('/')
+    for _, page in pages.items():
+        template = env.get_template(page['template'])
+        target_path = page['target'].lstrip('/')
         page_out = path.join(args.outdir, target_path)
         makedirs(page_out, exist_ok=True)
-        extra_args = p.get('extra_args', {})
+        extra_args = page.get('extra_args', {})
         year = datetime.now().year
-        with open(path.join(page_out, 'index.html'), 'w') as f:
-            f.write(template.render(navigation=navigation, page=p,
-                                    base_url=base_url, year=year,
+        with open(path.join(page_out, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(template.render(navigation=navigation, page=page,
+                                    base_url=BASE_URL, year=year,
                                     **extra_args))
 
 
