@@ -34,6 +34,6 @@ follows:
  * `plebgen.py` is licensed under the GNU General Public License v3, the text
    the text of which can be found in the `LICENSE_GPL` file.
  * The templates, including the texts therein, as well as the static assets, are
-   licensed under the CreativeCommons Attribution-ShareAlike 4.0 International
+   licensed under the Creative Commons Attribution-ShareAlike 4.0 International
    (CC BY-SA 4.0) License, the text of which can be found [on the creative
    commons website](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
