@@ -131,6 +131,10 @@ navigation = {
             'target': 'https://github.com/Plebian-Linux/quartz64-images/',
             'label': 'Contribute',
         },
+        {
+            'target': 'https://github.com/orgs/Plebian-Linux/discussions',
+            'label': 'Discuss',
+        },
     ],
 }
 
