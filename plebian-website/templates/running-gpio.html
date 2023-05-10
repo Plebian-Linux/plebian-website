@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Using GPIO</h1>
+<p>
+Using GPIO on the Quartz64 and SOQuartz computers works like on any other SBC
+using the modern mainline way: through <a href="https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/about/">libgpiod</a>.
+</p>
+<p>
+However, to reasonably translate pins from the datasheet or GPIO pinout diagrams
+to the chip and line numbers libgpiod requires, we need to go over some more
+information.
+</p>
+<p>
+The pins in schematics are usually called something like GPIO<var>X</var>_<var>Y</var><var>Z</var>
+where
+<ul>
+<li><var>X</var> is a number between 0 and 4 (inclusive)</li>
+<li><var>Y</var> is one of <em>A</em>, <em>B</em>, <em>C</em> or <em>D</em></li>
+<li><var>Z</var> is a number between 0 and 7 (inclusive)</li>
+</ul>
+</p>
+<p>
+For example, a pin may be called <em>GPIO2_B3</em> in the schematic. To now
+translate this into a gpio chip number and line number, we need a little table.
+</p>
+<p>
+The chip number is easy enough. <var>X</var>, the number immediately following
+<em>GPIO</em>, directly maps to the gpio chip number we want.
+</p>
+<p>
+For the line number, we can use the following table, shown here as a list of C
+defines:
+<pre>
+#define RK_GPIO_A0          0
+#define RK_GPIO_A1          1
+#define RK_GPIO_A2          2
+#define RK_GPIO_A3          3
+#define RK_GPIO_A4          4
+#define RK_GPIO_A5          5
+#define RK_GPIO_A6          6
+#define RK_GPIO_A7          7
+#define RK_GPIO_B0          8
+#define RK_GPIO_B1          9
+#define RK_GPIO_B2          10
+#define RK_GPIO_B3          11
+#define RK_GPIO_B4          12
+#define RK_GPIO_B5          13
+#define RK_GPIO_B6          14
+#define RK_GPIO_B7          15
+#define RK_GPIO_C0          16
+#define RK_GPIO_C1          17
+#define RK_GPIO_C2          18
+#define RK_GPIO_C3          19
+#define RK_GPIO_C4          20
+#define RK_GPIO_C5          21
+#define RK_GPIO_C6          22
+#define RK_GPIO_C7          23
+#define RK_GPIO_D0          24
+#define RK_GPIO_D1          25
+#define RK_GPIO_D2          26
+#define RK_GPIO_D3          27
+#define RK_GPIO_D4          28
+#define RK_GPIO_D5          29
+#define RK_GPIO_D6          30
+#define RK_GPIO_D7          31
+</pre>
+</p>
+<h2>Debian Bookworm (libgpiod &lt;= 1.6.x)</h2>
+<h3>From The Command Line</h3>
+<p>
+To use GPIO from the command line, we can use the libgpiod tools contained in
+the <code>gpiod</code> package.
+</p>
+<p>
+We can list the available GPIO chips and lines with <code class="plebian-inline-command">sudo gpioinfo</code>.
+You should see at least 5 gpiochips (0 to 4) listed with 32 lines (0 to 31) each.
+</p>
+<p>
+We can read the state of a GPIO line with
+<code class="plebian-command">sudo gpioget <var>chipnum</var> <var>offset1</var> <var>offset2</var>...</code>
+</p>
+<p>
+For example, <code class="plebian-inline-command">sudo gpioget 3 20</code> would
+read the pin numbered "7" on the Quartz64 Model B's GPIO header, as it is
+<code>GPIO3_C4</code> which translates to chip 3, line 20. For more options to
+the <code>gpioget</code> command, please consult <code class="plebian-inline-command">man gpioget</code>.
+</p>
+<p>
+Analogous to this, we can set a gpio line with
+<code class="plebian-command">sudo gpioset <var>chipnum</var> <var>offset1</var>=<var>value1</var> <var>offset2</var>=<var>value2</var>...</code>
+</p>
+<p>
+For example, the command <code class="plebian-inline-command">sudo gpioset 3 20=1</code>
+would set the aforementioned pin numbered 7 on the Quartz64 Model B's GPIO header to
+a "high" value.
+</p>
+<p>
+Please consult <code class="plebian-inline-command">man gpioset</code> for more
+information about other uses, such as to set pin biases.
+</p>
+<h3>From C</h3>
+<p>
+<strong>TODO:</strong> Write this section. (Sorry!)
+</p>
+<h3>From Python</h3>
+<p>
+You'll need to install <code>python3-libgpiod</code> for this.
+</p>
+<p>
+<strong>TODO:</strong> Write this section. (Sorry!)
+</p>
+<p>
+Please consult the examples in <code>/usr/share/doc/python3-libgpiod/examples</code>
+for further information, or inspect the module's documentation from an interactive
+Python interpreter with <code>help(gpiod)</code>.
+</p>
+<h2>Debian Trixie (libgpiod &gt;= 2.0)</h2>
+<p>
+Not to be confused with the package name "libgpiod2" in Bookworm (sigh),
+libgpiod 2.x.x makes breaking API changes.
+</p>
+<p>
+<strong>TODO:</strong> Wait for Trixie to release with libgpiod 2.x and write
+this section with all the fun changes that aren't documented anywhere.
+</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://www.ics.com/blog/gpio-programming-exploring-libgpiod-library">ics.com &mdash; GPIO Programming: Exploring the libgpiod Library</a> (libgpiod &lt;=1.6.x)</li>
+</ul>
+{% endblock %}

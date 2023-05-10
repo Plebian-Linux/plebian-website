@@ -104,6 +104,11 @@ pages = {
         'target': '/running/dt-overlays/',
         'title': 'Device Tree Overlays',
     },
+    'running-gpio': {
+        'template': 'running-gpio.html',
+        'target': '/running/gpio/',
+        'title': 'Using GPIO',
+    },
 }
 
 pages.update(flashing_pages())
