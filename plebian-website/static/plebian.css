@@ -108,6 +108,18 @@ body {
     content: '\2192';
 }
 
+.color-one {
+    color: #d83882;
+}
+
+.color-two {
+    color: #e77c02;
+}
+
+.color-three {
+    color: #7dc009;
+}
+
 @keyframes fadein {
     from {
         opacity: 0.0;
