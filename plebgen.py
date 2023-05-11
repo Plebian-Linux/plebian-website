@@ -7,10 +7,12 @@ from datetime import datetime
 from os import makedirs, path
 from shutil import rmtree, copytree
 from jinja2 import Environment, PackageLoader, select_autoescape
+from pygments.formatters import HtmlFormatter
 
 
 env = Environment(
-    loader=PackageLoader("plebian-website"),
+    loader=PackageLoader("plebian_website"),
+    extensions=['plebian_website.HighlightExtension'],
     autoescape=select_autoescape()
 )
 
@@ -146,7 +148,7 @@ navigation = {
 
 def copy_static_files(outdir):
     """Copies the static directory from the plebian-website module to outdir."""
-    static_path = "plebian-website/static"
+    static_path = "plebian_website/static"
     copytree(static_path, outdir, dirs_exist_ok=True)
 
 
@@ -162,6 +164,9 @@ def main():
     makedirs(args.outdir)
 
     copy_static_files(args.outdir)
+
+    with open(path.join(args.outdir, "code.css"), 'w', encoding='utf-8') as f:
+        f.write(HtmlFormatter().get_style_defs('.highlight'))
 
     for _, page in pages.items():
         template = env.get_template(page['template'])

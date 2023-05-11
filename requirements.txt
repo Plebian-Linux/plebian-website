@@ -1,1 +1,2 @@
 Jinja2==3.*
+Pygments==2.*

@@ -30,7 +30,7 @@ The chip number is easy enough. <var>X</var>, the number immediately following
 <p>
 For the line number, we can use the following table, shown here as a list of C
 defines:
-<pre>
+{% highlight 'c' %}
 #define RK_GPIO_A0          0
 #define RK_GPIO_A1          1
 #define RK_GPIO_A2          2
@@ -63,7 +63,7 @@ defines:
 #define RK_GPIO_D5          29
 #define RK_GPIO_D6          30
 #define RK_GPIO_D7          31
-</pre>
+{% endhighlight %}
 </p>
 <h2>Debian Bookworm (libgpiod &le; 1.6.x)</h2>
 <h3>From The Command Line</h3>
@@ -106,9 +106,46 @@ information about other uses, such as to set pin biases.
 <p>
 You'll need to install <code>python3-libgpiod</code> for this.
 </p>
+<h4>Blinking a LED</h4>
+<p>
+This example turns on GPIO3_B3 (pin header pin number 29 on the Quartz64 Model B)
+for 3 seconds, and then turns it off again. You can use this for example to turn
+on an LED connected to it (with a current limiting resistor.)
+</p>
+<p>
+{% highlight 'python' %}
+#!/usr/bin/env python3
+import sys
+from time import sleep
+import gpiod
+
+
+def main():
+    # first, open the /dev/gpiochip3 character device
+    # You can use "with" syntax for this instead if you'd rather not explicitly
+    # close the device after you're done
+    chip = gpiod.Chip('3', gpiod.Chip.OPEN_BY_NUMBER)
+    led = chip.get_line(11)     # Get B3 of GPIO3
+    # request the line with our script name as the consumer and direction output
+    # NOTE: do *not* use type=Line.DIRECTION_OUTPUT here! These bindings suck!
+    led.request(sys.argv[0], type=gpiod.LINE_REQ_DIR_OUT)
+    led.set_value(1)            # turn on the LED
+    sleep(3)                    # wait for 3 seconds
+    led.set_value(0)            # turn off the LED
+    # close the chip character device again
+    chip.close()
+    # you may no longer use the chip or line associated with it after this point
+
+
+if __name__ == '__main__':
+    main()
+{% endhighlight %}
+</p>
+<h4>Reading from GPIOs</h4>
 <p>
 <strong>TODO:</strong> Write this section. (Sorry!)
 </p>
+<h4>More Information</h4>
 <p>
 Please consult the examples in <code>/usr/share/doc/python3-libgpiod/examples</code>
 for further information, or inspect the module's documentation from an interactive

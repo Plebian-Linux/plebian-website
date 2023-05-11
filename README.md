@@ -6,7 +6,7 @@ This repository contains the code to generate the static plebian.org website.
 ## Setup
 
 Either create a virtualenv and install the requirements through pip, or install
-Jinja2 from your package manager, the choice is yours.
+Jinja2 and Pygments from your package manager, the choice is yours.
 
 
 ## Building The Website
