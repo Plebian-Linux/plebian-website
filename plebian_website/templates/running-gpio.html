@@ -141,9 +141,95 @@ if __name__ == '__main__':
     main()
 {% endhighlight %}
 </p>
-<h4>Reading from GPIOs</h4>
+<h4>Reading From GPIOs</h4>
 <p>
-<strong>TODO:</strong> Write this section. (Sorry!)
+In this example, we assume a button connected to the aforementioned GPIO3_B3
+(header pin number 29 on the Quartz64 Model B) between the pin itself and
+logic level high (3.3V). Note that in this case, we use the <code>with</code>
+syntax to automatically close the GPIO chip once it goes out of scope.
+</p>
+<p>
+{% highlight 'python' %}
+#!/usr/bin/env python3
+import sys
+import gpiod
+
+
+def main():
+    # first, open the /dev/gpiochip3 character device
+    with gpiod.Chip('3', gpiod.Chip.OPEN_BY_NUMBER) as chip:
+        button = chip.get_line(11)     # Get B3 of GPIO3
+        # request the line with our script name as the consumer, and
+        # input direction.
+        button.request(sys.argv[0], type=gpiod.LINE_REQ_DIR_IN)
+        val = -1
+        prev_val = -1
+        try:
+            # very power unfriendly busy loop here
+            # an actual program waiting for buttons would use events instead
+            while True:
+                prev_val = val
+                val = button.get_value()
+                if val != prev_val:
+                    print(val)
+        except KeyboardInterrupt:
+            return
+    # you may no longer use the chip or line associated with it after this point
+    # as it gets closed once we leave the "with" block
+
+
+if __name__ == '__main__':
+    main()
+{% endhighlight %}
+</p>
+<h4>Waiting On GPIO Events</h4>
+<p>
+In this example, we assume a button connected to the aforementioned GPIO3_B3
+(header pin number 29 on the Quartz64 Model B) between the pin itself and
+logic level high (3.3V). We print out whether a button was pressed or released
+whenever the state changes. Instead of busy looping, we're waiting on events.
+</p>
+<p>
+{% highlight 'python' %}
+#!/usr/bin/env python3
+import sys
+import gpiod
+
+
+def main():
+    # first, open the /dev/gpiochip3 character device
+    with gpiod.Chip('3', gpiod.Chip.OPEN_BY_NUMBER) as chip:
+        button = chip.get_line(11)     # Get B3 of GPIO3
+        # Request a GPIO sensitive to both rising and falling edges,
+        # with a pull-down enabled so the pin isn't floating.
+        # Note: pull-ups on the RK3566 GPIOs don't seem to work
+        button.request(sys.argv[0], type=gpiod.LINE_REQ_EV_BOTH_EDGES,
+                       flags=gpiod.LINE_REQ_FLAG_BIAS_PULL_DOWN)
+        try:
+            while True:
+                # Wait on events with a timeout of 1 hour. The python bindings
+                # are extremely bad so we can't actually tell it to wait
+                # indefinitely because ts never gets NULL'd
+                if button.event_wait(3600):
+                    # read all the available events for us
+                    # if using a real world button, you may want to debounce
+                    # this (i.e. ignore events that happened too quickly)
+                    for ev in button.event_read_multiple():
+                        if ev.type == gpiod.LineEvent.RISING_EDGE:
+                            print("Button pressed! Timestamp sec={} nsec={}"
+                                  .format(ev.sec, ev.nsec))
+                        elif ev.type == gpiod.LineEvent.FALLING_EDGE:
+                            print("Button released! Timestamp sec={} nsec={}"
+                                  .format(ev.sec, ev.nsec))
+        except KeyboardInterrupt:
+            return
+    # you may no longer use the chip or line associated with it after this point
+    # as it gets closed once we leave the "with" block
+
+
+if __name__ == '__main__':
+    main()
+{% endhighlight %}
 </p>
 <h4>More Information</h4>
 <p>
